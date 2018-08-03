@@ -6,27 +6,27 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+class DefaultController2 extends Controller
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/contact", name="contact")
      */
-    public function index()
+    public function contact()
     {
-        return new Response('<div><h1>Home</h1><br><a href="/">Home</a>
+        return new Response('<h1>Contact</h1><br><a href="/">Home</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
         <a href="/thankyou">Thank You</a></div>');
     }
 
     /**
-     * @Route("/about", name="about")
+     * @Route("/thankyou", name="thankyou")
      */
-    public function about()
+    public function thankyou()
     {
-        return new Response('<h1>About</h1><br><a href="/">Home</a>
+        return new Response('<h1>Thank You</h1><br><a href="/">Home</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
-        <a href="/thankyou">Thank You</a><br><h4>Wow some HTML content</h4></div>');
+        <a href="/thankyou">Thank You</a></div>');
     }
 }
