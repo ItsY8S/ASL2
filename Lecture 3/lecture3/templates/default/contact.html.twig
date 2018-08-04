@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    {{ form(contact_form, {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_start(contact_form) }}
+        {{ form_widget(contact_form) }}
+        {{ form_end(contact_form) }}
+    {% endblock %}
