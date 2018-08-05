@@ -23,19 +23,19 @@ router.get('/list', getNotes, (req, res, next) => {
 })
 
 router.post('/', getNotes, (req, res, next) => {
-  req.notes[req.body.username] = req.body
+  req.notes[req.body.title] = req.body
   saveNotes(req.notes)
   res.redirect('/')
 })
 
-router.put('/:uname', getNotes, (req, res, next) => {
-  req.notes[req.params.uname] = req.body
+router.put('/:title', getNotes, (req, res, next) => {
+  req.notes[req.params.title] = req.body
   saveNotes(req.notes)
-  res.json(req.notes[req.params.uname])
+  res.json(req.notes[req.params.title])
 })
 
-router.delete('/:uname', getNotes, (req, res, next) => {
-  delete req.notes[req.params.uname]
+router.delete('/:title', getNotes, (req, res, next) => {
+  delete req.notes[req.params.title]
   saveNotes(req.notes)
   res.sendStatus(200)
 })

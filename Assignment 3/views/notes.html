@@ -17,13 +17,16 @@
             </div>
             <form action="/notes" method="post" id="userForm">
                 <div class="form-group">
-                    <input type="text" name="firstname" placeholder="firstname" class="form-control">
+                    <input type="text" name="title" placeholder="Title" class="form-control">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="lastname" placeholder="lastname" class="form-control">
+                    <input type="date" name="date" placeholder="Date" class="form-control">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="username" placeholder="username" class="form-control">
+                    <input type="text" name="summary" placeholder="Summary" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="fulltext" placeholder="Full Text" class="form-control">
                 </div>
                 <div>
                     <button type="submit" class="btn btn-success">Save</button>
@@ -32,42 +35,42 @@
         </div>
     </div>
     <script>
-        var users = {}
-        // get all the users from the server
+        var notes = {}
+        // get all the notes from the server
         $.ajax({
             url: '/notes/list'
         })
-            .done(function (userlist) {
-                // add each user to the list
-                users = userlist;
+            .done(function (notelist) {
+                // add each note to the list
+                notes = notelist;
                 var list = $('#users')
-                for (username in users) {
-                    list.append('<div class="list-group-item"><strong class="username">' + users[username].username + '</strong>:  ' + users[username].firstname + '  ' + users[username].lastname + '<a class="badge delete-btn">Delete</a><a class="badge bg-primary edit-btn">Edit</a></div>')
+                for (note in notes) {
+                    list.append(`<div class="list-group-item"><strong class="username">${notes[note].title}</strong> ${notes[note].summary}<a class="badge delete-btn">Delete</a><a class="badge bg-primary edit-btn">Edit</a><a href="/notes/${notes[note].title}" class="badge primary-btn">View</a></div>`)
                 }
             })
         // when any of the edit buttons are clicked
         $('body').on('click', '.edit-btn', function (e) {
             e.preventDefault();
-            // get the username
-            var userName = $(this).parent().find('strong').text()
-            // set up the form
-            var form = $(this).parent().html('<label>Update User: ' + userName + '</label>' + $('#userForm')[0].outerHTML)
-            form.find('[name="firstname"]').val(users[userName].firstname);
-            form.find('[name="lastname"]').val(users[userName].lastname);
-            form.find('[name="username"]').val(users[userName].username).attr('type', 'hidden');
+            // get the title
+            var title = $(this).parent().find('strong').text()
+            // setup the form
+            var form = $(this).parent().html('<label>Edit Note: ' + title + '</label>' + $('#userForm')[0].outerHTML)
+            form.find('[name="title"]').val(notes[note].title);
+            form.find('[name="date"]').val(notes[note].date);
+            form.find('[name="summary"]').val(notes[note].summary).attr('type', 'hidden');
             // when the form is submitted
             form.on('submit', function (e) {
                 e.preventDefault();
                 form = form.find('form');
                 // send a put request to the server with all the form data
                 $.ajax({
-                    url: '/notes/' + userName,
+                    url: '/notes/' + title,
                     method: 'put',
                     data: form.serialize()
                 })
-                    .done(function (user) {
-                        // remove the form and put the user info back
-                        form.parent().replaceWith('<div class="list-group-item"><strong class="username">' + user.username + '</strong>:  ' + user.firstname + '  ' + user.lastname + '<a class="badge delete-btn">Delete</a><a class="badge bg-primary edit-btn">Edit</a></div>')
+                    .done(function (note) {
+                        // remove the form and put the note info back
+                        form.parent().replaceWith(`<div class="list-group-item"><strong class="username">${note.title}</strong>: ${note.summary}<a class="badge delete-btn">Delete</a><a class="badge bg-primary edit-btn">Edit</a></div>`)
                     })
             })
         })
@@ -75,10 +78,10 @@
         $('body').on('click', '.delete-btn', function (e) {
             e.preventDefault();
             var item = $(this).parent()
-            var userName = item.find('strong').text()
-            // send a delete request to the server with the username
+            var title = item.find('strong').text()
+            // send a delete request to the server with the title
             $.ajax({
-                url: '/notes/' + userName,
+                url: '/notes/' + title,
                 method: 'delete'
             })
                 .done(function () {
