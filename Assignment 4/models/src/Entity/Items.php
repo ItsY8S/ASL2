@@ -57,6 +57,7 @@ class Items
 
         return $this;
     }
+    
 
     public function getDescription(): ?string
     {
