@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -66,6 +68,16 @@ class Order
      * @ORM\JoinColumn(nullable=false)
      */
     private $user_id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Items", mappedBy="orders")
+     */
+    private $items;
+
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -188,6 +200,37 @@ class Order
     public function setUserId(?User $user_id): self
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Items[]
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(Items $item): self
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->setOrders($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Items $item): self
+    {
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            // set the owning side to null (unless already changed)
+            if ($item->getOrders() === $this) {
+                $item->setOrders(null);
+            }
+        }
 
         return $this;
     }

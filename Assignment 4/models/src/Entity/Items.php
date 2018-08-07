@@ -41,6 +41,12 @@ class Items
      */
     private $updated_at;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Order", inversedBy="items")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $orders;
+
     public function getId()
     {
         return $this->id;
@@ -103,6 +109,18 @@ class Items
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getOrders(): ?Order
+    {
+        return $this->orders;
+    }
+
+    public function setOrders(?Order $orders): self
+    {
+        $this->orders = $orders;
 
         return $this;
     }
