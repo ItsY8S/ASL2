@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+    <h1>Blog</h1>
+    <a href="{{path('post_new')}}">Create a new post</a>
+    {% for post in posts %}
+        <article>
+            <h1>{{post.title}}</h1>
+            <p>{{post.body}}</p>
+            <a href="{{ path('post_show', { id: post.id }) }}">Show Post</a>
+        </article>
+    {% endfor %}
+{% endblock %}

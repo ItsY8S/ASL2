@@ -1,0 +1,15 @@
+<a href="{{ path('index') }}">Back to the list</a>
+<h1>{{post.title}}</h1>
+<p>{{post.body}}</p>
+<a href="{{ path('post_edit', {id: post.id }) }}">Edit Post</a>
+
+<h3>New Comment</h3>
+{{ form_start(comment_form) }}
+{{ form_widget(comment_form) }}
+{{ form_end(comment_form) }}
+
+<h3>Comments</h3>
+{% for comment in post.comments %}
+    <p>{{ comment.body }}</p>
+    <a href="{{ path('delete', {id: comment.id, post_id: post.id }) }}">Delete</a>
+{% endfor %}
