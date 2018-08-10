@@ -1,0 +1,15 @@
+extends _layout
+block content
+  h1
+  .row
+    .card.col.m6.offset-m3
+      form.card-content(action='/login', method='post')
+        span.card-title Login
+        .input-field
+          input(type='text', name='username')
+          label Username:
+        .input-field
+          input(type='password', name='password')
+          label Password:
+        .input-field
+          input.btn(type='submit', value='Submit')

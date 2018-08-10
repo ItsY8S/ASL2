@@ -1,0 +1,13 @@
+extends _layout
+block content
+  h1 Profile
+  ul.collection
+    li.collection-item
+      strong ID:&nbsp;
+      | #{user._id }
+    li.collection-item
+      strong Username:&nbsp;
+      | #{user.username}
+    li.collection-item
+      strong Name:&nbsp;
+      | #{user.name}

@@ -1,0 +1,23 @@
+extends _layout
+
+block content
+
+  h1 Welcome!
+  .row
+    .col.m8
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis at praesentium eligendi, sint illum eos, reiciendis iusto facilis nihil vero voluptatibus voluptates tenetur. Debitis consectetur, nesciunt quia, non eaque fuga! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit eligendi, sequi eaque, recusandae magni, aperiam fugit animi assumenda officiis dolores maiores quae officia aspernatur itaque unde obcaecati corporis sint id.
+    if (!user)
+      .card.col.m4
+        form.card-content(method='post', action='/signup')
+          span.card-title Sign up!
+          .input-field
+            input(type="text", name="name", id="name")
+            label(for="name") Name
+          .input-field
+            input(type='text', name='username', id="username")
+            label(for="username") Username
+          .input-field
+            input(type='password', name='password', id="password")
+            label(for="password") Password
+          .input-field
+            input.btn(type='submit', value='Sign Up!')

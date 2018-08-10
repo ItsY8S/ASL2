@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  title Lecture 6
+  // Compiled and minified CSS
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css')
+
+  link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+
+body
+  nav
+    .nav-wrapper.container
+      a.brand-logo(href="/") Lecture 6
+      ul.nav-mobile.right.hide-on-med-and-down
+        if !user
+          li
+            a(href="/login") Login
+          li
+            a(href="/auth/github") Login with Github
+        else
+          li
+            a(href="/profile") Profile
+          li
+            a(href="/logout") Logout
+  .container
+    block content
+    // Compiled and minified JavaScript
+    script(type='text/javascript', src='https://code.jquery.com/jquery-3.2.1.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js')
