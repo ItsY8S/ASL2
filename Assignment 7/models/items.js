@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 let itemSchema = new Schema({
   title: String,
   status: String,
-  duedate: String,
+  date: Date,
   notes: String
 })
 

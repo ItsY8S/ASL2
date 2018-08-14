@@ -1,9 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const path = require('path')
-const { check, validationResult } = require('express-validator/check')
-const Film = require('../models/films')
-const Person = require('../models/people')
 const List = require('../models/lists')
 const Item = require('../models/items')
 
@@ -17,7 +13,6 @@ router.get('/lists', (req, res) => {
     if (err) throw err
 
     // object of the lists
-    console.log(lists)
     res.json(lists)
   })
 })
@@ -28,21 +23,15 @@ router.get('/lists/:id', (req, res) => {
     if (err) throw err
 
     // show the one list
-    // console.log(lists)
-    const items = lists.items
-    res.json(items)
+    res.json(lists)
   })
 })
 
 router.get('/item/:id', (req, res) => {
   // get an item with ID of 1
-  List.findById(req.params.id, function(err, lists) {
+  Item.findById(req.params.id, function(err, item) {
     if (err) throw err
-
-    // show the one item
-    console.log(lists)
-    // const items = items.items
-    res.json(lists.items[0])
+    res.json(item)
   })
 })
 
@@ -52,15 +41,34 @@ router.post('/lists', (req, res) => {
 
   newList.save(function(err, list) {
     if (err) throw err
-
     res.json({ id: list._id })
   })
 })
 
-router.post('/item', (req, res) => {})
+router.post('/item', (req, res) => {
+  let newItem = new Item(req.body)
 
-router.put('/item/:id', (req, res) => {})
+  newItem.save(function(err, item) {
+    if (err) throw err
+    res.json(item._id)
+  })
+})
 
-router.delete('/item/:id', (req, res) => {})
+router.put('/item/:id', (req, res) => {
+  Item.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(
+    err,
+    item
+  ) {
+    if (err) throw err
+    res.json(item)
+  })
+})
+
+router.delete('/item/:id', (req, res) => {
+  Item.findByIdAndRemove(req.params.id, function(err, item) {
+    if (err) throw err
+    res.json('It works')
+  })
+})
 
 module.exports = router

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 let listSchema = new Schema({
   title: String,
   color: String,
-  items: [Array]
+  items: Schema.Types.ObjectId
 })
 
 let List = mongoose.model('List', listSchema)
