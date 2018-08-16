@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        title Create
+    body
+        h3 Create a post
+        form(action="/post" method="POST")
+            input(type="text" placeholder="Post Text")
+            br
+            button(type="submit") Add Post
+
+        h3 Create a user
+        form(action="/post" method="POST")
+            input(type="text" placeholder="Username")
+            br
+            input(type="email" placeholder="Email")
+            br
+            input(type="tel" placeholder="Phone Number")
+            br
+            button(type="submit") Add User
+
+        br
+        a(href="/feed") View Feed
