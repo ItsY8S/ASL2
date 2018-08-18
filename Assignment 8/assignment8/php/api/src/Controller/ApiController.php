@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormTypeInterface;
+use Doctrine\ORM\EntityManager;
+use App\Entity\Users;
 
 class ApiController extends AbstractController
 {
@@ -59,29 +61,47 @@ class ApiController extends AbstractController
     /**
      * @Route("/post", name="create_post")
      */
-    public function createPost() {
+    public function createPost(Request $request) {
+        $content = $request->getContent();
+        $parametersAsArray = json_decode($content, true);
+
+         var_dump($parametersAsArray);
+
+         $em = $this->getDoctrine()->getManager();
         $post = new Posts();
-        $form = $this->createForm(ApiController::class, $post);
-        $form->handleRequest($request);
+        $user = new Users();
+        $post->setText("test");
+        $post->setLikes(3);
+        $post->setUser($user, 4);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-        $response = $this->get('api')->post('/post', ['json'=>$post]);
-        $post = json_decode($response->getBody());
-
-        return $this->redirectToRoute('post_show', array('text' => $post->text));
-        }
-
-        
-
-        // $data = json_decode(file_get_contents('http://localhost:3000/post'), true);
-        // print_r($data);
-
-        // $request = Request::createFromGlobals();
-
-        // $form->handleRequest($request);
-
-        // $request->request->get('text', 'likes');
-
-        // return new JsonResponse(['post' => $request->request->get('text', 'likes')]);
+        $em->persist($user);
+        $em->persist($post);
+        $em->flush();
+        // $post->setLikes($data['personal']['gender']);
+        return new JsonResponse($parametersAsArray);
     }
+
+
+    /**
+     * @Route("/post", name="create_post")
+     */
+    // public function createPost(Request $request) {
+    //     $content = $request->getContent();
+    //     $parametersAsArray = json_decode($content, true);
+
+    //     var_dump($parametersAsArray);
+
+    //     $em = $this->getDoctrine()->getManager();
+    //     $post = new Posts();
+    //     $user = new Users();
+    //     $post->setText("test");
+    //     $post->setLikes(3);
+    //     $post->setUser($user);
+
+    //     // $em->persist($user);
+    //     $em->persist($post);
+    //     $em->flush();
+    //     // $post->setLikes($data['personal']['gender']);
+    //     return new JsonResponse($parametersAsArray);
+    // }
 }

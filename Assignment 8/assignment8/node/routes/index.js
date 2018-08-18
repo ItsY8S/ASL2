@@ -38,19 +38,42 @@ router.get('/feed/:userId', (req, res) => {
     getUserPosts()
 })
 
+
+router.get('/new', (req, res) => {
+    res.render('form')
+})
+
 // Create a new post
 router.post('/post', (req, res) => {
-    axios.post('http://localhost:8000/post', {
-        text: "This is a new post",
-        likes: 20,
-        user: 1
+    var bodyFormData = new FormData();
+    bodyFormData.set('text', 'This is a new post');
+
+    axios({
+        method: 'post',
+        url: 'http://localhost:8000/post',
+        data: bodyFormData,
+        config: { headers: { 'Content-Type': 'multipart/form-data' } }
     })
         .then(function (response) {
+            //handle success
             console.log(response);
         })
-        .catch(function (error) {
-            console.log(error);
-        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+
+    // axios.post('http://localhost:8000/post', {
+    //     "id": "5",
+    //     "text": "Test post",
+    //     "likes": "5"
+    // })
+    //     .then(function (response) {
+    //         console.log(response);
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //     })
 })
 
 module.exports = router;

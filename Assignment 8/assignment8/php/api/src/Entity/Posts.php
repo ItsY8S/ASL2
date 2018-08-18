@@ -27,7 +27,7 @@ class Posts
     private $likes;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="posts", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

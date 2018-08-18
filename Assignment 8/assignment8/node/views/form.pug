@@ -8,9 +8,14 @@ html(lang="en")
     body
         h2 Add Post
         br
-        form(action="/post" method="POST")
+        form(action="http://localhost:8000/post" method="POST" enctype="multipart/form-data")
             label(for="text") Post Text
             input(type="text" name="text" max="200")
-            label(for="likes")
+            br
+            label(for="likes") Likes
             input(type="number" name="likes")
-            button(type="submit")
+            br
+            label(for="likes") User ID
+            input(type="number" name="username")
+            br
+            button(type="submit") Submit
