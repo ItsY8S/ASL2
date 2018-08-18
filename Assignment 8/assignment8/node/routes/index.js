@@ -5,73 +5,52 @@ const axios = require('axios');
 
 // Default page
 router.get('/', (req, res, next) => {
-    // Render this view
-    res.render(path.join(__dirname, '/../views/form.pug'));
+    // GET DAT FEED WOWOWOW
+    async function getFeed() {
+        try {
+            const response = await axios.get('http://localhost:8000/feed', { proxy: { host: '127.0.0.1', port: 8000 } })
+            console.log(response.data);
+            res.json(response.data)
+        }
+        catch (error) {
+            console.log("Error", error);
+        }
+    }
+
+    // Render their feed
+    getFeed()
 })
 
-
-// Feed route - display all the posts
-router.get('/feed', (req, res) => {
-    // async function getFeed() {
-    //     try {
-    //         const response = await axios.get('/feed')
-    //         console.log(response);
-    //     }
-    //     catch (error) {
-    //         console.log(error);
-    //     }
-    // }
-
-    // Render this view
-    res.render(path.join(__dirname, '/../views/feed.pug'))
-})
-
-// Feed route/:id - get all the posts for one user
+// Render all posts from a user based on their id
 router.get('/feed/:userId', (req, res) => {
-    // get all the posts for one user
+    async function getUserPosts() {
+        try {
+            const response = await axios.get('http://localhost:8000/feed/:id', { proxy: { host: '127.0.0.1', port: 8000 } })
+            console.log(response.data);
+            res.json(response.data)
+        }
+        catch (error) {
+            console.log("Error:", error);
+        }
+    }
 
-
-    // Render this view
-    res.render(path.join(__dirname, '/../views/feed.pug'))
+    // Render the posts for a user
+    getUserPosts()
 })
 
-// Post post route - create a new post
+// Create a new post
 router.post('/post', (req, res) => {
-    // CREATE A NEW POST
-
-
-    // Redirect to feed
-    res.redirect('/feed')
+    axios.post('http://localhost:8000/post', {
+        text: "This is a new post",
+        likes: 20,
+        user: 1
+    })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
 })
-
-// User post route - create a new user
-router.post('/user', (req, res) => {
-    // CREATE A NEW USER
-
-
-    // Redirect to feed
-    res.redirect('/feed')
-})
-
-// Post/:id put route - updates a post (changing the number of likes)
-router.put('/post/:id', (req, res) => {
-    // CHANGE THE NUMBER OF LIKES
-
-
-    // Redirect to feed
-    res.redirect('/feed')
-})
-
-// Post/:id Delete route - deletes a post
-router.delete('/post/:id', (req, res) => {
-    // DELETE A POST
-
-
-    // Redirect to feed
-    res.redirect('/feed')
-})
-
-
-
 
 module.exports = router;

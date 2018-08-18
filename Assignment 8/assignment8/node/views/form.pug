@@ -4,23 +4,13 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
-        title Create
+        title Add Post
     body
-        h3 Create a post
-        form(action="/post" method="POST")
-            input(type="text" placeholder="Post Text")
-            br
-            button(type="submit") Add Post
-
-        h3 Create a user
-        form(action="/post" method="POST")
-            input(type="text" placeholder="Username")
-            br
-            input(type="email" placeholder="Email")
-            br
-            input(type="tel" placeholder="Phone Number")
-            br
-            button(type="submit") Add User
-
+        h2 Add Post
         br
-        a(href="/feed") View Feed
+        form(action="/post" method="POST")
+            label(for="text") Post Text
+            input(type="text" name="text" max="200")
+            label(for="likes")
+            input(type="number" name="likes")
+            button(type="submit")
