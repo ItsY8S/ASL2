@@ -1,0 +1,40 @@
+extends _layout
+
+block content
+  br
+  .row
+    .card.col.s10.m5.l4.offset-s1
+      form.card-content(action='/new', method='post')
+        span.card-title Add Fruit
+        .input-field
+        label(for='name') Name:
+        input(type='text', name='name', id='name' required)
+        .input-field
+        label(for='quantity') Quantity:
+        input(type='number', name='quantity', id='quantity' required)
+        .input-field
+        input.btn(type='submit', value='Add Fruit')
+
+    .col.s10.m6.l7.offset-s1.offset-m1.offset-l1
+      h4 Fruits
+      table.striped
+        thead
+          tr
+            th Name
+            th Quantity
+            th Edit
+            th Delete
+        tbody
+          //- Check for fruits before trying to loop. Prevents undefined length error.
+          if fruits
+            //- Loop through each fruit and display them it a table row
+            each fruit in fruits
+              tr
+                td= fruit.name
+                td= fruit.quantity
+
+                td
+                  a(href="/edit/" + fruit._id) Edit
+                td
+                  a(href="/delete/" + fruit._id) Delete
+

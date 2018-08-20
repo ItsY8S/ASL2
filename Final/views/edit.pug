@@ -1,0 +1,16 @@
+extends _layout
+
+block content
+  br
+  .row
+    .card.col.s10.m5.l4.offset-s1
+      form.card-content(action='/edit/' + fruit._id, method='POST')
+        span.card-title Edit Fruit
+        .input-field
+        label(for='name') Name:
+        input(type='text', name='name', id='name' value=fruit.name)
+        .input-field
+        label(for='quantity') Quantity:
+        input(type='number', name='quantity', id='quantity' value=fruit.quantity)
+        .input-field
+        input.btn(type='submit', value='Edit Fruit')

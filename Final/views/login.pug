@@ -1,0 +1,16 @@
+extends _layout
+
+block content
+  br
+  .row
+    .card.col.s10.offset-s1
+      form.card-content(action='/login', method='post')
+        span.card-title Login
+        .input-field
+        label(for='username') Username:
+        input(type='text', name='username', id='username' required)
+        .input-field
+        label(for='password') Password:
+        input(type='password', name='password', id='password' required)
+        .input-field
+        input.btn(type='submit', value='Log In')
