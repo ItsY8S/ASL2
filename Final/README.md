@@ -8,3 +8,10 @@ For this project, I was instructed to apply my knowledge gained over four weeks 
 ### Why I built it
 
 Aside from the fact this was a final project for class, I built this to test my newly acquired skills. This was my first month learning Node.js and was a big challenge for having 0 previous knowledge.
+
+
+### Project Images
+
+![Image 1](https://itsy8s.github.io/Y8S-Portfolio/images/Shopping%20List%201.jpg)
+![Image 2](https://itsy8s.github.io/Y8S-Portfolio/images/Shopping%20List%202.jpg)
+![Image 3](https://itsy8s.github.io/Y8S-Portfolio/images/Shopping%20List%203.jpg)
